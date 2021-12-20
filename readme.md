@@ -1,6 +1,7 @@
 # Project PFE (no name yet for this project !!)
 ## _FLASK AI based API_
-
+## INTRODUCTION
+The main idea behind this app is to create an food image classifier using [TensorFlow](https://www.tensorflow.org/) and then to retrieve some cooking tutorials from [YouTube](https://www.youtube.com/).
 ## INSTALLATION
 
 - Clone this repo (ps: you may run into some problem with AI modules)
