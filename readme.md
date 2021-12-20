@@ -34,6 +34,6 @@ http://127.0.0.1:5000/
 ![upload1](images/REST.png)
 
 # The app will not work for you unless you download these two files 
-### These two used for the AI_MODEL and they are too have and you know tunis can not upload 100mb files it will take a long time😔
+### These two used for the AI_MODEL and they are too heavy and you know tunis can not upload 100mb files it will take a long time😔
 ![AI_MODEL](images/model.png)
 ## link will provided soon i hope
