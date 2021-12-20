@@ -1,0 +1,5 @@
+numpy
+tensorflow
+flask
+Werkzeug
+gunicorn
