@@ -38,3 +38,11 @@ http://127.0.0.1:5000/
 ### These two used for the AI_MODEL and they are too heavy and you know tunis can not upload 100mb files it will take a long time😔
 ![AI_MODEL](images/model.png)
 ## link will be provided soon i hope!
+
+# AUTHOR
+Created at 🌙 by HamdiAAA
+- my profile :[Hamdi Mohamed ](https://github.com/HamdiAAA).
+### 2021 FACTS : 
+- The witcher 2 is the best show for 2021.
+- Spider-man no way home is the best movie for 2021.
+- It takes two game of the year ❤ .
