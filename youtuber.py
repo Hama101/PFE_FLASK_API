@@ -4,13 +4,16 @@ import re
 def search_youtube(keyword):
     pattern = r"/watch\?v=(\S{11})"
     url = f"https://www.youtube.com/results?search_query={keyword}"
-
-    html = urllib.request.urlopen(url)
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    
+    html = urllib.request.urlopen(req)
     html = html.read().decode()
-    ids = re.findall(pattern, html)
+    ids = list(re.findall(pattern, html))
 
+    #reversed the list 
+    ids = ids[:-1]
     results = [f"https://www.youtube.com/watch?v={id}" for id in ids]
     embeded = [f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' for id in ids]
 
-    return results, embeded
+    return results[:15], embeded[:15]
 
