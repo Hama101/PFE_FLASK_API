@@ -1,1 +1,0 @@
-web: gunicorn Food_app:app --timeout 120

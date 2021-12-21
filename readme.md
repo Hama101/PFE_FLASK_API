@@ -3,7 +3,7 @@
 ## INTRODUCTION
 The main idea behind this app is to create an food image classifier using [TensorFlow](https://www.tensorflow.org/) and then to retrieve some cooking tutorials from [YouTube](https://www.youtube.com/).
 ## INSTALLATION
-
+### Without docker
 - Clone this repo (ps: you may run into some problem with AI modules)
 
 ```sh
@@ -21,6 +21,14 @@ python Food_app.py
 
 ```sh
 http://127.0.0.1:5000/
+```
+
+### With docker
+- after you install docker and docker-compose on your lunix machine run the following command
+```sh
+sudo dockerd                // to run docker demon
+docker-compose up           // to run
+cocker-compose build        //to build the image
 ```
 ## PREVIEW
 ## main page view 
