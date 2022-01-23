@@ -28,7 +28,7 @@ http://127.0.0.1:5000/
 ```sh
 sudo dockerd                // to run docker demon
 docker-compose up           // to run
-cocker-compose build        //to build the image
+docker-compose build        //to build the image
 ```
 ## PREVIEW
 ## main page view 
