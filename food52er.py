@@ -1,8 +1,8 @@
-
 import urllib.request
 import re
 
 def search_food52(keyword):
+    keyword = keyword.replace(' ', '+')
     pattern = r'/recipes/([0-9]{3,5})-'
     url = f"https://food52.com/recipes/search?q={keyword}"
    

@@ -60,6 +60,6 @@ if __name__ == '__main__':
     response.headers["Access-Control-Allow-Headers"] = "*"
 
     try : 
-        app.run(host='192.168.1.152', port=8000)
+        app.run(host='192.168.1.13', port=8000)
     except :
         app.run()
