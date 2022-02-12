@@ -65,6 +65,7 @@ def main(img):
     file_name = img
     print("Loading model..." , file_name)
     model_file = "retrained_graph.pb"
+    #model_file ="saved_model.pb"
     label_file = "retrained_labels.txt"
     input_height = 299
     input_width = 299
@@ -121,9 +122,11 @@ def main(img):
         results = sess.run(output_operation.outputs[0] , {input_operation.outputs[0]: t})
         end = time.time()
     results = np.squeeze(results)
-
     top_k = results.argsort()[-5:][::-1]
     labels = load_labels(label_file)
 
+    res = []
     for i in top_k:
-        return labels[i]
+        res.append(labels[i])
+    
+    return res

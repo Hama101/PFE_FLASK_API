@@ -3,3 +3,4 @@ tensorflow
 flask
 Werkzeug
 gunicorn
+selenium
