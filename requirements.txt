@@ -1,5 +1,5 @@
-numpy
-tensorflow
+#numpy
+#tensorflow
 flask
 Werkzeug
 gunicorn
