@@ -1,1 +1,1 @@
-web: gunicorn app:food101
+web: python food101.py
