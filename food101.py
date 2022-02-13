@@ -32,11 +32,17 @@ def upload():
         result = "Label"
         # # Make prediction
         print("image url : ",file_path)
-        result = predict_image(file_path)
+        try :
+            result = predict_image(file_path)
+            data['name'] , data ['percentage'] = result
+        except Exception as e:
+            print(e)
+            # # Process your result for human
+            data['name'] = ['Error in prediction']
+            data['percentage'] = ['Error in prediction']
         print(result)
         os.remove(file_path)
-        #set the data
-        data['name'] , data ['percentage'] = result
+        #set the data here
         return data
     return None
 

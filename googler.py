@@ -14,13 +14,13 @@ chrome_options.add_argument("--disable-java")
 
 def predict_image(img_path):
     driver = webdriver.Chrome(PATH , chrome_options=chrome_options)
-    driver.get('https://storage.googleapis.com/tfhub-visualizers/visualizers/vision/index.html?modelMetadataUrl=https%3A%2F%2Fstorage.googleapis.com%2Ftfhub-visualizers%2Fgoogle%2Faiy%2Fvision%2Fclassifier%2Ffood_V1%2F1%2Fmetadata.json&publisherName=Google&publisherThumbnailUrl=https%3A%2F%2Fwww.gstatic.com%2Faihub%2Fgoogle_logo_120.png')
+    driver.get('https://storage.googleapis.com/tfhub-visualizers/visualizers/vision/index.html?modelMetadataUrl=https%3A%2F%2Fstorage.googleapis.com%2Ftfhub-visualizers%2Fgoogle%2Faiy%2Fvision%2Fclassifier%2Ffood_V1%2F1%2Fmetadata.json')
     img = os.getcwd()+f"/{img_path}"
-    file = WebDriverWait(driver, 10).until(
+    file = WebDriverWait(driver, 60).until(
         EC.presence_of_element_located((By.ID, "file"))
     )
     file.send_keys(img)
-    l = WebDriverWait(driver, 10).until(
+    l = WebDriverWait(driver, 60).until(
         EC.presence_of_element_located((By.CLASS_NAME, "tfhubVisualizerTemplatesClassifierResultDisplayName"))
     )
     labels = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name('tfhubVisualizerTemplatesClassifierResultDisplayName')]
