@@ -51,8 +51,8 @@ if __name__ == '__main__':
     response = Response()
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Headers"] = "*"
-
-    try : 
-        app.run(host='192.168.1.93', port=8000)
-    except :
-        app.run()
+    app.run(threaded=True, port=5000)
+    # try : 
+    #     app.run(host='192.168.1.93', port=8000)
+    # except :
+    #     app.run()
