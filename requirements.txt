@@ -4,3 +4,4 @@ flask
 Werkzeug
 gunicorn
 selenium
+waitress
