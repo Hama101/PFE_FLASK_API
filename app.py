@@ -8,7 +8,7 @@ from flask import *
 import os
 from werkzeug.utils import secure_filename
 from googler import predict_image
-
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -51,7 +51,8 @@ if __name__ == '__main__':
     response = Response()
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Headers"] = "*"
-    app.run(threaded=True, port=5000)
+    #app.run(threaded=True, port=5000)
+    serve(app, host='0.0.0.0', port=port) # <---- ADD THIS
     # try : 
     #     app.run(host='192.168.1.93', port=8000)
     # except :
