@@ -16,4 +16,4 @@ def search_youtube(keyword):
     embeded = [f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' for id in ids]
 
     #return results[:3], embeded[:3]
-    return embeded[:3]
+    return embeded[:6]
