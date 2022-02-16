@@ -42,7 +42,7 @@ def upload():
             data['percentage'] = ['Error in prediction']
         os.remove(file_path)
         #set the data here
-        return result
+        return data
     return None
 
 
