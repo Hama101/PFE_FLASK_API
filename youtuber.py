@@ -2,6 +2,7 @@ import urllib.request
 import re
 
 def search_youtube(keyword):
+    keyword += " recipes"
     keyword = keyword.replace(' ', '+')
     pattern = r"/watch\?v=(\S{11})"
     url = f"https://www.youtube.com/results?search_query={keyword}"
