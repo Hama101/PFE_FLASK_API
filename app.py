@@ -9,6 +9,8 @@ import os
 from werkzeug.utils import secure_filename
 from googler import predict_image
 from waitress import serve
+from youtuber import search_youtube
+from food52er import search_food52
 
 app = Flask(__name__)
 
@@ -45,6 +47,22 @@ def upload():
         return data
     return None
 
+
+@app.route('/predict', methods=['GET'])
+def upload():
+    name = request.args.get('name', default = None , type = str)
+    data = {
+        "vedios":[],
+        "recpies":[],
+    }
+    if name :
+        data['vedios'] = search_youtube(result)
+        data['blog_list'] = search_food52(result)
+    else:
+        data = {
+            "Error":"Error!"
+        }
+    return data
 
 if __name__ == '__main__':
     response = Response()
