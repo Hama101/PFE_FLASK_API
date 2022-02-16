@@ -41,9 +41,18 @@ def upload():
             data['name'] = ['Error in prediction']
             data['percentage'] = ['Error in prediction']
         print(result)
+
         os.remove(file_path)
+        
+        #loop throw data arrays and add to result to array of objects
+        result = []
+        for i in range(len(data['name'])):
+            result.append({
+                'name': data['name'][i],
+                'percentage': data['percentage'][i]
+        })
         #set the data here
-        return data
+        return result
     return None
 
 

@@ -46,7 +46,7 @@ $(document).ready(function () {
                 $('.loader').hide();
                 $('#result').fadeIn(600);
                 console.log(data);
-                $('#result').text(' Result:  ' + data.name + " \n Persantages : " + data.percentage);
+                $('#result').text(' Result:  ' + data );
                 console.log('Success!');
                 
             },
