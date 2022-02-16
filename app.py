@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 from googler import predict_image
 from waitress import serve
 from youtuber import search_youtube
-from food52er import search_food52
+# from food52er import search_food52
 
 app = Flask(__name__)
 
@@ -56,8 +56,8 @@ def get_vedios(name):
         "recpies":[],
     }
     if name :
-        data['vedios'] = search_youtube(result)
-        data['blog_list'] = search_food52(result)
+        data['vedios'] = search_youtube(name)
+        data['blog_list'] = search_food52(name)
     else:
         data = {
             "Error":"Error!"
