@@ -48,9 +48,9 @@ def upload():
     return None
 
 
-@app.route('/predict', methods=['GET'])
-def upload():
-    name = request.args.get('name', default = None , type = str)
+@app.route('/<name>', methods=['GET'])
+def get_vedios(name):
+    print("name : ", name)
     data = {
         "vedios":[],
         "recpies":[],
