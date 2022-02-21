@@ -37,9 +37,9 @@ def get_image(label):
 
 
 def predict_image(img_path):
-    driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
-    # driver = webdriver.Chrome(executable_path=os.environ.get(
-    #    "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    # driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
+    driver = webdriver.Chrome(executable_path=os.environ.get(
+        "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get('https://storage.googleapis.com/tfhub-visualizers/visualizers/vision/index.html?modelMetadataUrl=https%3A%2F%2Fstorage.googleapis.com%2Ftfhub-visualizers%2Fgoogle%2Faiy%2Fvision%2Fclassifier%2Ffood_V1%2F1%2Fmetadata.json')
     img = os.getcwd()+f"/{img_path}"
     file = WebDriverWait(driver, 60).until(
