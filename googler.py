@@ -21,7 +21,7 @@ chrome_options.add_argument("--no-sandbox")
 
 def get_image(label):
     src = "https://post.healthline.com/wp-content/uploads/2020/09/healthy-eating-ingredients-732x549-thumbnail.jpg"
-    url = f"https://api.pexels.com/v1/search?query={label}&page=2&per_page=1"
+    url = f"https://api.pexels.com/v1/search?query={label}&page=1&per_page=1"
     headers = {
         "Authorization": API_KEY
     }
@@ -51,9 +51,9 @@ def predict_image(img_path):
             (By.CLASS_NAME, "tfhubVisualizerTemplatesClassifierResultDisplayName"))
     )
     labels = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
-        'tfhubVisualizerTemplatesClassifierResultDisplayName')[0:6]]
+        'tfhubVisualizerTemplatesClassifierResultDisplayName')[0:3]]
     percentage = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
-        'tfhubVisualizerTemplatesClassifierResultScorePercent')[0:6]]
+        'tfhubVisualizerTemplatesClassifierResultScorePercent')[0:3]]
     driver.quit()
     images = [get_image(label) for label in labels]
     return labels, percentage, images
