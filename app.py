@@ -41,10 +41,7 @@ def upload():
         except Exception as e:
             print(e)
             # # Process your result for humans
-            data.append({
-                'Error': 'Error',
-                'percentage': 0
-            })
+            data["Error"] = "Error Whle Predicting the image"
         os.remove(file_path)
         # set the data here
         return data
