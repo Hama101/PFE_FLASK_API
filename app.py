@@ -36,8 +36,11 @@ def upload():
         try:
             names, percentages = predict_image(file_path)
             for name, percentage in zip(names, percentages):
-                data["predections"].append(
-                    {"name": name, "percentage": percentage})
+                data["predections"].append({
+                    "id": f"{name}",
+                    "name": name,
+                    "percentage": percentage
+                })
         except Exception as e:
             print(e)
             # # Process your result for humans
