@@ -51,9 +51,9 @@ def predict_image(img_path):
             (By.CLASS_NAME, "tfhubVisualizerTemplatesClassifierResultDisplayName"))
     )
     labels = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
-        'tfhubVisualizerTemplatesClassifierResultDisplayName')[0:3]]
+        'tfhubVisualizerTemplatesClassifierResultDisplayName')[0:4]]
     percentage = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
-        'tfhubVisualizerTemplatesClassifierResultScorePercent')[0:3]]
+        'tfhubVisualizerTemplatesClassifierResultScorePercent')[0:4]]
     driver.quit()
     images = [get_image(label) for label in labels]
     return labels, percentage, images
