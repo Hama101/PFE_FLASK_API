@@ -12,7 +12,7 @@ chrome_options = webdriver.ChromeOptions()
 # for deployment
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--incognito")
-# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-java")
 chrome_options.add_argument("--disable-dev-shm-usage")
