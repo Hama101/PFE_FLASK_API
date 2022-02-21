@@ -5,3 +5,4 @@ Werkzeug
 gunicorn
 selenium
 waitress
+requests

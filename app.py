@@ -34,12 +34,13 @@ def upload():
         # # Make prediction
         print("image url : ", file_path)
         try:
-            names, percentages = predict_image(file_path)
-            for name, percentage in zip(names, percentages):
+            names, percentages, images = predict_image(file_path)
+            for name, percentage, image in zip(names, percentages, images):
                 data["predections"].append({
                     "id": f"{name}",
                     "name": name,
-                    "percentage": percentage
+                    "percentage": percentage,
+                    "image": str(image)
                 })
         except Exception as e:
             print(e)

@@ -4,23 +4,42 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
+import requests
+from keys import API_KEY
 
 PATH = r'driver\chromedriver.exe'
 chrome_options = webdriver.ChromeOptions()
 # for deployment
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--incognito")
-chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-java")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
 
 
+def get_image(label):
+    src = "https://post.healthline.com/wp-content/uploads/2020/09/healthy-eating-ingredients-732x549-thumbnail.jpg"
+    url = f"https://api.pexels.com/v1/search?query={label}&page=2&per_page=1"
+    headers = {
+        "Authorization": API_KEY
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        if data['total_results'] > 0:
+            try:
+                src = data['photos'][0]['src']['portrait']
+            except Exception as e:
+                pass
+    return src
+
+
 def predict_image(img_path):
-    #driver = webdriver.Chrome(PATH , chrome_options=chrome_options)
-    driver = webdriver.Chrome(executable_path=os.environ.get(
-        "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
+    # driver = webdriver.Chrome(executable_path=os.environ.get(
+    #    "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get('https://storage.googleapis.com/tfhub-visualizers/visualizers/vision/index.html?modelMetadataUrl=https%3A%2F%2Fstorage.googleapis.com%2Ftfhub-visualizers%2Fgoogle%2Faiy%2Fvision%2Fclassifier%2Ffood_V1%2F1%2Fmetadata.json')
     img = os.getcwd()+f"/{img_path}"
     file = WebDriverWait(driver, 60).until(
@@ -32,11 +51,12 @@ def predict_image(img_path):
             (By.CLASS_NAME, "tfhubVisualizerTemplatesClassifierResultDisplayName"))
     )
     labels = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
-        'tfhubVisualizerTemplatesClassifierResultDisplayName')]
+        'tfhubVisualizerTemplatesClassifierResultDisplayName')[0:6]]
     percentage = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
-        'tfhubVisualizerTemplatesClassifierResultScorePercent')]
+        'tfhubVisualizerTemplatesClassifierResultScorePercent')[0:6]]
     driver.quit()
-    return labels[0:5], percentage[0:5]
+    images = [get_image(label) for label in labels]
+    return labels, percentage, images
 
 
 if __name__ == "__main__":
