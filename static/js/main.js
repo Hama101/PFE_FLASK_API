@@ -27,11 +27,10 @@ $(document).ready(function () {
     // Predict
     $('#btn-predict').click(function () {
         var form_data = new FormData($('#upload-file')[0]);
-        console.log(form_data.get('file'));
+        console.log("form_data :", form_data.get('file'));
         // Show loading animation
         $(this).hide();
         $('.loader').show();
-
         // Make prediction by calling api /predict
         $.ajax({
             type: 'POST',
@@ -46,9 +45,8 @@ $(document).ready(function () {
                 $('.loader').hide();
                 $('#result').fadeIn(600);
                 console.log(data);
-                $('#result').text(' Result:  ' + data + " \n Persantages : " + data.percentage);
+                $('#result').text(' Result:  ' + data);
                 console.log('Success!');
-                
             },
         });
     });

@@ -24,8 +24,7 @@ def index():
 def upload():
     if request.method == 'POST':
         data = {
-            'name': [],
-            'percentage': [],
+            "predections": []
         }
         # Get the file from post request
         f = request.files['file']
@@ -33,17 +32,21 @@ def upload():
         f.save(file_path)
         result = "Label"
         # # Make prediction
-        print("image url : ",file_path)
-        try :
-            result = predict_image(file_path)
-            data['name'] , data ['percentage'] = result
+        print("image url : ", file_path)
+        try:
+            names, percentages = predict_image(file_path)
+            for name, percentage in zip(names, percentages):
+                data["predections"].append(
+                    {"name": name, "percentage": percentage})
         except Exception as e:
             print(e)
-            # # Process your result for human
-            data['name'] = ['Error in prediction']
-            data['percentage'] = ['Error in prediction']
+            # # Process your result for humans
+            data.append({
+                'Error': 'Error',
+                'percentage': 0
+            })
         os.remove(file_path)
-        #set the data here
+        # set the data here
         return data
     return None
 
@@ -52,25 +55,22 @@ def upload():
 def get_vedios(name):
     print("name : ", name)
     data = {
-        "vedios":[],
-        "recpies":[],
+        "vedios": [],
+        "recpies": [],
     }
-    if name :
+    if name:
         data['vedios'] = search_youtube(name)
         data['blog_list'] = search_food52(name)
     else:
         data = {
-            "Error":"Error!"
+            "Error": "Error!"
         }
     return data
+
 
 if __name__ == '__main__':
     response = Response()
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Headers"] = "*"
-    #app.run(threaded=True, port=5000)
-    serve(app, host='0.0.0.0', port=port) # <---- ADD THIS
-    # try : 
-    #     app.run(host='192.168.1.93', port=8000)
-    # except :
-    #     app.run()
+    app.run(threaded=True, port=5000)
+    # serve(app, host='0.0.0.0', port=5000)  # <---- ADD THIS
