@@ -37,6 +37,8 @@ class Recipe:
     def get_images(self):
         images = self.driver.find_elements_by_class_name('image-loaded')
         urls = [url.get_attribute('data-src') for url in images]
+        # remove all the images ending with .png from the urls
+        urls = [url for url in urls if not url.endswith('.png')]
         return list(set(urls))
 
     def get_ingredients(self):
