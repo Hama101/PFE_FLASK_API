@@ -4,6 +4,12 @@ This filename can then safely be stored on a regular file
 system and passed to os.path.join(). 
 The filename returned is an ASCII only string for maximum portability.
 '''
+
+'''
+this app is using selenium to predict the image than to scrape some data from websites it may take some time proccessing
+
+'''
+
 from flask import *
 import os
 from werkzeug.utils import secure_filename
@@ -11,7 +17,7 @@ from googler import predict_image
 from waitress import serve
 from youtuber import search_youtube
 from food52er import search_food52
-
+from BD import Recipe, get_list_by_topic
 app = Flask(__name__)
 
 
@@ -53,20 +59,32 @@ def upload():
 
 
 @app.route('/<name>', methods=['GET'])
-def get_vedios(name):
-    print("name : ", name)
-    data = {
-        "vedios": [],
-        "recpies": [],
-    }
-    if name:
-        data['vedios'] = search_youtube(name)
-        data['blog_list'] = search_food52(name)
-    else:
-        data = {
-            "Error": "Error!"
+def get_list_of_recipes(name):
+    try:
+        return {
+            "data": get_list_by_topic(name)
         }
-    return data
+    except Exception as e:
+        print(e)
+        return {
+            "Error": "Error while fetching data"
+        }
+
+
+@app.route('/recipe-details', methods=['POST'])
+def recipe_details():
+    try:
+        data = request.get_json()
+        url = data['url']
+        recipe = Recipe(url)
+        return {
+            "data": recipe.get_data()
+        }
+    except Exception as e:
+        print(e)
+        return {
+            "Error": "Error while fetching data"
+        }
 
 
 if __name__ == '__main__':
