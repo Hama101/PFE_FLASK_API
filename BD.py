@@ -106,7 +106,7 @@ def get_list_by_topic(topic="Pizza"):
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
     )
     # scrolling down the page
-    cards = driver.find_elements_by_class_name(class_name)[0:6]
+    cards = driver.find_elements_by_class_name(class_name)[0:10]
     list_of_cards = [Card(driver, card) for card in cards]
 
     return [card.get_data() for card in list_of_cards]
