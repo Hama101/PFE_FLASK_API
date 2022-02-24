@@ -37,7 +37,7 @@ class Recipe:
     def get_images(self):
         images = self.driver.find_elements_by_class_name('image-loaded')
         urls = [url.get_attribute('data-src') for url in images]
-        return urls
+        return list(set(urls))
 
     def get_ingredients(self):
         list_of_ingredients = [x.get_attribute(
