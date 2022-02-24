@@ -106,10 +106,14 @@ def get_list_by_topic(topic="Pizza"):
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
     )
     # scrolling down the page
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     cards = driver.find_elements_by_class_name(class_name)[0:10]
     list_of_cards = [Card(driver, card) for card in cards]
-
-    return [card.get_data() for card in list_of_cards]
+    data = [card.get_data() for card in list_of_cards]
+    # remove all the card with no title
+    data = [x for x in data if x['title'] != '']
+    driver.close()
+    return data
 
 
 # this function will return a random image for a given topic
@@ -124,6 +128,7 @@ def get_image(driver, topic):
     # select a random card
     random_card = random.choice(cards)
     card = Card(driver, random_card)
+    driver.close()
     return card.get_thumbnail()
 
 
