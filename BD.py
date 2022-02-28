@@ -39,6 +39,7 @@ class Recipe:
         urls = [url.get_attribute('data-src') for url in images]
         # remove all the images ending with .png from the urls
         urls = [url for url in urls if not url.endswith('.png')]
+        # remove all duplicate urls
         return list(set(urls))
 
     def get_ingredients(self):
@@ -104,7 +105,7 @@ def get_list_by_topic(topic="Pizza"):
     class_name = "card"
     driver.get(f'https://www.allrecipes.com/search/results/?search={topic}')
 
-    element = WebDriverWait(driver, 30).until(
+    element = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
     )
     # scrolling down the page
