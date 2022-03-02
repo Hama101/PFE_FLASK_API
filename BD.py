@@ -32,7 +32,10 @@ class Recipe:
         return self.driver.find_element_by_xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[1]/div[1]/div/h1').get_attribute('innerHTML')
 
     def get_rating(self):
-        return self.driver.find_element_by_xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/ul/li[1]/span[1]').get_attribute('innerHTML')
+        rating = self.driver.find_element_by_xpath(
+            '/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/ul/li[1]/span[1]').get_attribute('innerHTML')
+        # convert rating to int
+        return int("".join(filter(str.isdigit, rating)))
 
     def get_images(self):
         images = self.driver.find_elements_by_class_name('image-loaded')
@@ -52,7 +55,22 @@ class Recipe:
         return [x.find_element_by_tag_name('p').get_attribute('innerHTML') for x in self.driver.find_elements_by_class_name('paragraph')]
 
     def get_time(self):
-        return self.driver.find_element_by_xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div/section/div[1]/div[3]/div[2]').get_attribute('innerHTML')
+        time_str = self.driver.find_element_by_xpath(
+            '/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div/section/div[1]/div[3]/div[2]').get_attribute('innerHTML')
+        # for time we see if the time have day than we multiply it by 24 and and we added to hours
+        if 'day' in time_str:
+            time_str = time_str.split(' ')
+            time_str = time_str[0]
+            time_str = time_str.split(' ')
+            time_str = time_str[0]
+            time_str = time_str.split(':')
+            time_str = int(time_str[0]) * 24 + int(time_str[1])
+        else:
+            time_str = time_str.split(' ')
+            time_str = time_str[0]
+            time_str = time_str.split(':')
+            time_str = int(time_str[0]) * 60 + int(time_str[1])
+        return time_str
 
     def get_data(self):
         data = {
