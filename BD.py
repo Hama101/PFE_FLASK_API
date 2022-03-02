@@ -61,7 +61,8 @@ class Recipe:
             'images': self.get_images(),
             'ingredients': self.get_ingredients(),
             'instructions': self.get_instructions(),
-            'time': self.get_time()
+            'time': self.get_time(),
+            'vedios':[]
         }
         # save the data to a json file using the json module
         # name = data['name']
