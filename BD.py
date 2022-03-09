@@ -29,7 +29,7 @@ class Recipe:
         self.driver.get(url)
 
     def get_name(self):
-        return self.driver.find_element_by_xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[1]/div[1]/div/h1').get_attribute('innerHTML')
+        return self.driver.find_element_by_class_name('headline').get_attribute('innerHTML')
 
     def get_rating(self):
         return self.driver.find_element_by_xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/ul/li[1]/span[1]').get_attribute('innerHTML')
@@ -62,7 +62,7 @@ class Recipe:
             'ingredients': self.get_ingredients(),
             'instructions': self.get_instructions(),
             'time': self.get_time(),
-            'vedios':[]
+            'vedios': []
         }
         # save the data to a json file using the json module
         # name = data['name']
