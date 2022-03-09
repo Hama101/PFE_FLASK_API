@@ -52,7 +52,7 @@ class Recipe:
         return [x.find_element_by_tag_name('p').get_attribute('innerHTML') for x in self.driver.find_elements_by_class_name('paragraph')]
 
     def get_time(self):
-        return self.driver.find_element_by_xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div/section/div[1]/div[3]/div[2]').get_attribute('innerHTML')
+        return self.driver.find_element_by_class_name('recipe-meta-item-body').get_attribute('innerHTML')
 
     def get_data(self):
         data = {
