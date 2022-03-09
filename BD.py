@@ -32,7 +32,7 @@ class Recipe:
         return self.driver.find_element_by_class_name('headline').get_attribute('innerHTML')
 
     def get_rating(self):
-        return self.driver.find_element_by_xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/ul/li[1]/span[1]').get_attribute('innerHTML')
+        return self.driver.find_element_by_class_name('ugc-ratings-item').get_attribute('innerHTML')
 
     def get_images(self):
         images = self.driver.find_elements_by_class_name('image-loaded')
