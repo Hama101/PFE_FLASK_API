@@ -24,17 +24,15 @@ app = Flask(__name__)
 
 def load_image(image):
     print("Loading image...", image)
-    text = predict_image(image)
-    return text
+    return predict_image(image)
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 # this view will be using selenuim to predict the image
-
-
 @app.route('/api/v1/predict', methods=['GET', 'POST'])
 def upload_v1():
     if request.method == 'POST':
@@ -72,7 +70,7 @@ def upload_v1():
 def upload_v2():
     if request.method == 'POST':
         data = {
-            'name': '',
+            "predections": []
         }
         # Get the file from post request
         f = request.files['file']
@@ -81,8 +79,22 @@ def upload_v2():
         result = "Label"
         # # Make prediction
         print("image url : ", file_path)
-        result = load_image(file_path)
-        result = result.title()
+        try:
+            names, percentages, images = load_image(file_path)
+            for name, percentage, image in zip(names, percentages, images):
+                data["predections"].append({
+                    "id": f"{name}",
+                    "name": str(name),
+                    "percentage": str(percentage),
+                    "image": str(image)
+                })
+        except Exception as e:
+            print(e)
+            # # Process your result for humans
+            data["Error"] = "Error Whle Predicting the image"
+        os.remove(file_path)
+        # set the data here
+        return data
         os.remove(file_path)
         # set the data
         data['name'] = result
