@@ -1,5 +1,8 @@
-#numpy
-#tensorflow
+tensorflow-hub
+opencv-python
+pandas
+numpy
+tensorflow
 flask
 Werkzeug
 gunicorn

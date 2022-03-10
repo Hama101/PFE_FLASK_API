@@ -18,16 +18,25 @@ from waitress import serve
 from youtuber import search_youtube
 from food52er import search_food52
 from BD import Recipe, get_list_by_topic
+from predict_ts import predict_image
 app = Flask(__name__)
+
+
+def load_image(image):
+    print("Loading image...", image)
+    text = predict_image(image)
+    return text
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# this view will be using selenuim to predict the image
 
-@app.route('/predict', methods=['GET', 'POST'])
-def upload():
+
+@app.route('/api/v1/predict', methods=['GET', 'POST'])
+def upload_v1():
     if request.method == 'POST':
         data = {
             "predections": []
@@ -54,6 +63,29 @@ def upload():
             data["Error"] = "Error Whle Predicting the image"
         os.remove(file_path)
         # set the data here
+        return data
+    return None
+
+
+# this view will be using tensorflow to predict the image
+@app.route('/api/v2/predict', methods=['GET', 'POST'])
+def upload_v2():
+    if request.method == 'POST':
+        data = {
+            'name': '',
+        }
+        # Get the file from post request
+        f = request.files['file']
+        file_path = secure_filename(f.filename)
+        f.save(file_path)
+        result = "Label"
+        # # Make prediction
+        print("image url : ", file_path)
+        result = load_image(file_path)
+        result = result.title()
+        os.remove(file_path)
+        # set the data
+        data['name'] = result
         return data
     return None
 
