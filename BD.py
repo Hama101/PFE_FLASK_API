@@ -135,7 +135,7 @@ def get_image(driver, topic):
     element = WebDriverWait(driver, 30).until(
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
     )
-    cards = driver.find_elements_by_class_name(class_name)[0:6]
+    cards = driver.find_element_by_class_name(class_name)
     # select a random card
     random_card = random.choice(cards)
     card = Card(driver, random_card)
