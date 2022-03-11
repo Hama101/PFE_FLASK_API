@@ -98,7 +98,7 @@ class Card:
         try:
             return self.element.find_element_by_class_name('ratings-count').get_attribute('innerHTML')
         except:
-            return None
+            return 0
 
     def get_data(self):
         return {
