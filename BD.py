@@ -127,7 +127,10 @@ def get_list_by_topic(topic="Pizza"):
 # this function will return a random image for a given topic
 def get_image(driver, topic):
     class_name = "card"
-    driver.get(f'https://www.allrecipes.com/search/results/?search={topic}')
+    # open new tab and change foucs to it
+    driver.execute_script(
+        f"window.open('https://www.allrecipes.com/search/results/?search={topic}');")
+    driver.switch_to.window(driver.window_handles[1])
 
     element = WebDriverWait(driver, 30).until(
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
