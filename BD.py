@@ -95,7 +95,10 @@ class Card:
         return self.element.find_elements_by_tag_name('img')[0].get_attribute('title')
 
     def get_ratings(self):
-        return self.element.find_element_by_class_name('ratings-count').get_attribute('innerHTML')
+        try:
+            return self.element.find_element_by_class_name('ratings-count').get_attribute('innerHTML')
+        except:
+            return None
 
     def get_data(self):
         return {
