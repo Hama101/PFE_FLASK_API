@@ -135,10 +135,11 @@ def get_image(driver, topic):
     element = WebDriverWait(driver, 30).until(
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
     )
-    cards = driver.find_element_by_class_name(class_name)
-    # select a random card
-    random_card = random.choice(cards)
-    card = Card(driver, random_card)
+    card_elem = driver.find_element_by_class_name(class_name)
+
+    card = Card(driver, card_elem)
+    # close the current tab on foucs
+    driver.close()
     return card.get_thumbnail()
 
 
