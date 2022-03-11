@@ -88,11 +88,15 @@ class Card:
     def get_title(self):
         return self.element.find_elements_by_tag_name('img')[0].get_attribute('title')
 
+    def get_ratings(self):
+        return self.element.find_element_by_class_name('ratings-count').get_attribute('innerHTML')
+
     def get_data(self):
         return {
             'url': self.get_url(),
             'thumbnail': self.get_thumbnail(),
-            'title': self.get_title()
+            'title': self.get_title(),
+            'rating': f"{self.get_ratings()} Rating"
         }
 
 

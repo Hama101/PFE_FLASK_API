@@ -2,7 +2,7 @@ tensorflow-hub
 opencv-python
 pandas
 numpy
-tensorflow
+#tensorflow
 flask
 Werkzeug
 gunicorn

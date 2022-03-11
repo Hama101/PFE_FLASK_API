@@ -95,10 +95,6 @@ def upload_v2():
         os.remove(file_path)
         # set the data here
         return data
-        os.remove(file_path)
-        # set the data
-        data['name'] = result
-        return data
     return None
 
 
