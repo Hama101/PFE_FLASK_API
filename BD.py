@@ -125,10 +125,8 @@ def get_list_by_topic(topic="Pizza"):
 
 
 # this function will return a random image for a given topic
-def get_image(topic):
+def get_image(driver, topic):
     class_name = "card"
-    driver = webdriver.Chrome(executable_path=os.environ.get(
-        "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get(f'https://www.allrecipes.com/search/results/?search={topic}')
 
     element = WebDriverWait(driver, 30).until(

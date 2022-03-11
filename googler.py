@@ -38,8 +38,9 @@ def predict_image(img_path):
         'tfhubVisualizerTemplatesClassifierResultDisplayName')[0:6]]
     percentage = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
         'tfhubVisualizerTemplatesClassifierResultScorePercent')[0:6]]
-
-    images = [get_image(label) for label in labels]
+    print("getting images")
+    images = [get_image(driver, label) for label in labels]
+    print("done images")
     #images = ["https://post.healthline.com/wp-content/uploads/2020/09/healthy-eating-ingredients-732x549-thumbnail.jpg" for label in labels]
     driver.quit()
     return labels, percentage, images
