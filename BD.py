@@ -139,7 +139,6 @@ def get_image(driver, topic):
     # select a random card
     random_card = random.choice(cards)
     card = Card(driver, random_card)
-    driver.close()
     return card.get_thumbnail()
 
 
