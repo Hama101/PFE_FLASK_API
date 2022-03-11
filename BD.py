@@ -126,21 +126,7 @@ def get_list_by_topic(topic="Pizza"):
 
 # this function will return a random image for a given topic
 def get_image(driver, topic):
-    class_name = "card"
-    # open new tab and change foucs to it
-    driver.execute_script(
-        f"window.open('https://www.allrecipes.com/search/results/?search={topic}');")
-    driver.switch_to.window(driver.window_handles[1])
-
-    element = WebDriverWait(driver, 30).until(
-        EC.presence_of_element_located((By.CLASS_NAME, class_name))
-    )
-    card_elem = driver.find_element_by_class_name(class_name)
-
-    card = Card(driver, card_elem)
-    # close the current tab on foucs
-    driver.close()
-    return card.get_thumbnail()
+    return random.choice(get_list_by_topic(topic))['thumbnail']
 
 
 if __name__ == '__main__':
