@@ -1,3 +1,4 @@
+# 3rd party
 from selenium import webdriver
 import random
 import json
@@ -7,7 +8,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import os
+import requests
 
+# local modules
+from keys import DJANGO_API_URL, API_KEY
+
+# GLOABAL VARIABLES
 PATH = r'driver\chromedriver.exe'
 chrome_options = webdriver.ChromeOptions()
 # for deployment
@@ -125,8 +131,19 @@ def get_list_by_topic(topic="Pizza"):
 
 
 # this function will return a random image for a given topic
-def get_image(driver, topic):
-    return random.choice(get_list_by_topic(topic))['thumbnail']
+def get_image(topic):
+    # make a request to DJANGO_API_URL using requests module
+    # and pass the topic as a parameter
+    response = requests.get(DJANGO_API_URL, params={'query': topic})
+    # get the response data
+    data = response.json()
+    if len(data["data"]):
+        # get a random thumbnail from the response data
+        thumbnail = random.choice(data['data'])['thumbnail']
+        print("*****got a thumbnail*****")
+        return thumbnail
+    else:
+        return "https://post.healthline.com/wp-content/uploads/2020/12/healthy-eating-food-diet-ingredients-732x549-thumbnail.jpg"
 
 
 if __name__ == '__main__':
