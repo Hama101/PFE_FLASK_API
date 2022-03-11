@@ -10,6 +10,8 @@ this app is using selenium to predict the image than to scrape some data from we
 
 '''
 
+# from predict_ts import predict_image
+
 from flask import *
 import os
 from werkzeug.utils import secure_filename
@@ -18,7 +20,6 @@ from waitress import serve
 from youtuber import search_youtube
 from food52er import search_food52
 from BD import Recipe, get_list_by_topic
-from predict_ts import predict_image
 app = Flask(__name__)
 
 
@@ -65,37 +66,37 @@ def upload_v1():
     return None
 
 
-# this view will be using tensorflow to predict the image
-@app.route('/api/v2/predict', methods=['GET', 'POST'])
-def upload_v2():
-    if request.method == 'POST':
-        data = {
-            "predections": []
-        }
-        # Get the file from post request
-        f = request.files['file']
-        file_path = secure_filename(f.filename)
-        f.save(file_path)
-        result = "Label"
-        # # Make prediction
-        print("image url : ", file_path)
-        try:
-            names, percentages, images = load_image(file_path)
-            for name, percentage, image in zip(names, percentages, images):
-                data["predections"].append({
-                    "id": f"{name}",
-                    "name": str(name),
-                    "percentage": str(percentage),
-                    "image": str(image)
-                })
-        except Exception as e:
-            print(e)
-            # # Process your result for humans
-            data["Error"] = "Error Whle Predicting the image"
-        os.remove(file_path)
-        # set the data here
-        return data
-    return None
+# # this view will be using tensorflow to predict the image
+# @app.route('/api/v2/predict', methods=['GET', 'POST'])
+# def upload_v2():
+#     if request.method == 'POST':
+#         data = {
+#             "predections": []
+#         }
+#         # Get the file from post request
+#         f = request.files['file']
+#         file_path = secure_filename(f.filename)
+#         f.save(file_path)
+#         result = "Label"
+#         # # Make prediction
+#         print("image url : ", file_path)
+#         try:
+#             names, percentages, images = load_image(file_path)
+#             for name, percentage, image in zip(names, percentages, images):
+#                 data["predections"].append({
+#                     "id": f"{name}",
+#                     "name": str(name),
+#                     "percentage": str(percentage),
+#                     "image": str(image)
+#                 })
+#         except Exception as e:
+#             print(e)
+#             # # Process your result for humans
+#             data["Error"] = "Error Whle Predicting the image"
+#         os.remove(file_path)
+#         # set the data here
+#         return data
+#     return None
 
 
 @app.route('/<name>', methods=['GET'])
