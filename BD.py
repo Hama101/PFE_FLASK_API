@@ -96,7 +96,7 @@ class Card:
             'url': self.get_url(),
             'thumbnail': self.get_thumbnail(),
             'title': self.get_title(),
-            'rating': f"{self.get_ratings()} Rating"
+            'rating': f"{self.get_ratings()}".replace(' ', '')
         }
 
 
