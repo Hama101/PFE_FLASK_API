@@ -42,8 +42,6 @@ def create_app(register_stuffs=True):
     app = Flask(__name__)
     CORS(app)  # This makes the CORS feature cover all routes in the app
 
-    if register_stuffs:
-        register_views(app)
     return app
 
 
