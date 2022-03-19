@@ -12,6 +12,7 @@ import tensorflow.compat.v1 as tf
 
 tf.disable_eager_execution()
 
+
 def load_graph(model_file):
     graph = tf.Graph()
     graph_def = tf.GraphDef()
@@ -63,7 +64,7 @@ def load_labels(label_file):
 
 def main(img):
     file_name = img
-    print("Loading model..." , file_name)
+    print("Loading model...", file_name)
     model_file = "retrained_graph.pb"
     #model_file ="saved_model.pb"
     label_file = "retrained_labels.txt"
@@ -119,7 +120,8 @@ def main(img):
 
     with tf.Session(graph=graph) as sess:
         start = time.time()
-        results = sess.run(output_operation.outputs[0] , {input_operation.outputs[0]: t})
+        results = sess.run(output_operation.outputs[0], {
+                           input_operation.outputs[0]: t})
         end = time.time()
     results = np.squeeze(results)
     top_k = results.argsort()[-5:][::-1]
@@ -128,5 +130,5 @@ def main(img):
     res = []
     for i in top_k:
         res.append(labels[i])
-    
+
     return res
