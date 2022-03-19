@@ -12,20 +12,42 @@ this app is using selenium to predict the image than to scrape some data from we
 
 # from predict_ts import predict_image
 
-from flask import *
-import os
-from werkzeug.utils import secure_filename
-from googler import predict_image
-from waitress import serve
-from youtuber import search_youtube
-from food52er import search_food52
+
+# creating app with cross
+
+
+
+
 from BD import Recipe, get_list_by_topic
-app = Flask(__name__)
-
-
+from food52er import search_food52
+from youtuber import search_youtube
+from waitress import serve
+from googler import predict_image
+from werkzeug.utils import secure_filename
+import os
+from flask import *
+from flask_cors import CORS
 def load_image(image):
     print("Loading image...", image)
     return predict_image(image)
+
+
+"""
+Configure the app and views
+"""
+
+
+def create_app(register_stuffs=True):
+
+    app = Flask(__name__)
+    CORS(app)  # This makes the CORS feature cover all routes in the app
+
+    if register_stuffs:
+        register_views(app)
+    return app
+
+
+app = create_app()
 
 
 @app.route('/')
@@ -129,8 +151,6 @@ def recipe_details():
 
 
 if __name__ == '__main__':
-    response = Response()
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Headers"] = "*"
+
     app.run(threaded=True, port=5000)
     # serve(app, host='0.0.0.0', port=5000)  # <---- ADD THIS
