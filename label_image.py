@@ -124,11 +124,17 @@ def main(img):
                            input_operation.outputs[0]: t})
         end = time.time()
     results = np.squeeze(results)
-    top_k = results.argsort()[-5:][::-1]
+    top_k = results.argsort()[-6:][::-1]
     labels = load_labels(label_file)
 
-    res = []
-    for i in top_k:
-        res.append(labels[i])
+    # retune the 6 prections
+    names = [str(labels[i]) for i in top_k]
+    # get thier percentages
+    percentages = [str(results[i]) for i in top_k]
+    
+    data = {
+        "names": names,
+        "percentages":percentages,
+    }
 
-    return res
+    return data

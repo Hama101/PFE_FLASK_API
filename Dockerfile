@@ -1,6 +1,30 @@
 FROM python:3.9
-ENV PYTHONUNBUFFERED 1
+
+# Environment Varaibles
+ENV DISPLAY=:10
+RUN apt-get update -y
+RUN apt-get install -y python3-pip build-essential python3-dev nginx
+RUN apt-get install -y 1ibasound2
+RUN pip install -u gunicorn
+
+# Firefox Setup
+RUN wget https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/45.0.2/linux-x86_64/en-US/firefox-45.0.2. tar.bz2
+RUN tar -xjvf firefox".tar.bz2
+RUN mv firefox /opt/firefox
+RUN In -sf /opt/firefox/firefox /usr/bin/firefox
+
+# xvfb install
+RUN apt-get install -y xvfb
+
+# Make working directory
+RUN mkdir /app
 WORKDIR /app
-COPY requirements.txt /app/requirements.txt
+ADD requirements.txt /app
+
+# Install requirements
 RUN pip install -r requirements.txt
-COPY . /app
+
+# Copy project to docker work directory
+ADD . /app
+EXPOSE 5056
+ENTRYPOINT ["sh", "start.sh"]

@@ -135,6 +135,7 @@ def get_list_by_topic(topic="Pizza"):
 
 # this function will return a random image for a given topic
 def get_image(topic):
+    print(topic)
     # make a request to DJANGO_API_URL using requests module
     # and pass the topic as a parameter
     response = requests.get(DJANGO_API_URL, params={'query': topic})

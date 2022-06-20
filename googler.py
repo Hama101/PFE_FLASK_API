@@ -7,6 +7,11 @@ import os
 import requests
 from BD import get_image
 
+import asyncio
+
+
+async def get_image_async(name="pizza"):
+    return asyncio.to_thread(func=get_image, args=(name,))
 
 PATH = r'driver\chromedriver.exe'
 chrome_options = webdriver.ChromeOptions()
@@ -20,7 +25,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
 
 
-def predict_image(img_path):
+async def predict_image(img_path):
     # driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
     driver = webdriver.Chrome(executable_path=os.environ.get(
         "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
@@ -39,7 +44,7 @@ def predict_image(img_path):
     percentage = [item.get_attribute("innerHTML") for item in driver.find_elements_by_class_name(
         'tfhubVisualizerTemplatesClassifierResultScorePercent')[0:6]]
     print("getting images")
-    images = [get_image(label) for label in labels]
+    images = await asyncio.gather(*[get_image_async(label) for label in labels])
     print("done images")
     driver.quit()
     return labels, percentage, images

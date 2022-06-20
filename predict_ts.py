@@ -4,9 +4,11 @@ import numpy as np
 import pandas as pd
 import cv2
 from skimage import io
+from BD import get_image
 
 
-def predict_image(image_path="ojja-shakshuka-2.jpg"):
+def predict_image(image_path="a_url_to_an_image_or_local_path.jpg"):
+    print("i m here")
     labelmap_url = "https://www.gstatic.com/aihub/tfhub/labelmaps/aiy_food_V1_labelmap.csv"
     input_shape = (224, 224)
 
@@ -25,9 +27,10 @@ def predict_image(image_path="ojja-shakshuka-2.jpg"):
     lables = list(pd.read_csv(labelmap_url)["name"])
     # retunr the 5 prections
     names = [lables[i] for i in top_k]
+    print(names)
     # get thier percentages
     percentages = [results[i] for i in top_k]
-    images = ["https://post.healthline.com/wp-content/uploads/2020/09/healthy-eating-ingredients-732x549-thumbnail.jpg" for name in names]
+    images = [get_image(name) for name in names]
 
     return names, percentages, images
 
@@ -35,5 +38,5 @@ def predict_image(image_path="ojja-shakshuka-2.jpg"):
 if __name__ == "__main__":
     import time
     start_time = time.time()
-    predict_image()
+    print(predict_image())
     print("--- %s seconds ---" % (time.time() - start_time))

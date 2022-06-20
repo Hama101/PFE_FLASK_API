@@ -25,7 +25,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/api/v2/predict', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
         data = {
