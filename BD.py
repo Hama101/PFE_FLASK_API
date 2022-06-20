@@ -116,7 +116,7 @@ async def get_list_by_topic(topic="Pizza"):
     class_name = "card"
     driver.get(f'https://www.allrecipes.com/search/results/?search={topic}')
 
-    element = await WebDriverWait(driver, 10).until(
+    element = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
     )
     # scrolling down the page
