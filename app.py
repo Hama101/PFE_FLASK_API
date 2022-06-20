@@ -123,10 +123,11 @@ def upload_v2():
 
 
 @app.route('/<name>', methods=['GET'])
-def get_list_of_recipes(name):
+async def get_list_of_recipes(name):
+    print(name)
     try:
         return {
-            "data": get_list_by_topic(name)
+            "data": await get_list_by_topic(name)
         }
     except Exception as e:
         print(e)

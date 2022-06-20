@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import os
 import requests
+import asyncio
 
 # local modules
 from keys import DJANGO_API_URL, API_KEY
@@ -70,10 +71,6 @@ class Recipe:
             'time': self.get_time(),
             'vedios': []
         }
-        # save the data to a json file using the json module
-        # name = data['name']
-        # with open(f'BD/{name}.json', 'w') as outfile:
-        #     json.dump(data, outfile , indent=4)
 
         return data
 
@@ -110,7 +107,7 @@ class Card:
 
 
 # this will show the first 6 repices for a given topic
-def get_list_by_topic(topic="Pizza"):
+async def get_list_by_topic(topic="Pizza"):
     #driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
     driver = webdriver.Chrome(executable_path=os.environ.get(
         "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
@@ -119,16 +116,17 @@ def get_list_by_topic(topic="Pizza"):
     class_name = "card"
     driver.get(f'https://www.allrecipes.com/search/results/?search={topic}')
 
-    element = WebDriverWait(driver, 10).until(
+    element = await WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, class_name))
     )
     # scrolling down the page
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     cards = driver.find_elements_by_class_name(class_name)[0:10]
-    list_of_cards = [Card(driver, card) for card in cards]
-    data = [card.get_data() for card in list_of_cards]
+    list_of_cards = await asyncio.gather(*[Card(driver, card) for card in cards])
+    data = await asyncio.gather([card.get_data() for card in list_of_cards])
     # remove all the card with no title
-    data = [x for x in data if x['title'] != '']
+    data = await asyncio.gather([x for x in data if x['title'] != ''])
+
     driver.close()
     return data
 
