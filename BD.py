@@ -73,6 +73,9 @@ class Recipe:
         }
 
         return data
+    
+    async def get_data_async(self):
+        return await asyncio.to_thread(self.get_data())
 
 
 class Card:
@@ -104,6 +107,9 @@ class Card:
             'title': self.get_title(),
             'rating': f"{self.get_ratings()}".replace(' ', '')
         }
+
+    async def get_data_async(self):
+        return await asyncio.to_thread(self.get_data())
 
 
 # this will show the first 6 repices for a given topic
