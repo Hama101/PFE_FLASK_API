@@ -11,7 +11,7 @@ import asyncio
 
 
 async def get_image_async(name="pizza"):
-    return asyncio.to_thread(func=get_image , args=(name,))
+    return asyncio.to_thread(get_image , name)
 
 PATH = r'driver\chromedriver.exe'
 chrome_options = webdriver.ChromeOptions()
