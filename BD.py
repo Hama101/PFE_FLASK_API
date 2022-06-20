@@ -109,7 +109,7 @@ class Card:
         }
 
     async def get_data_async(self):
-        return await asyncio.to_thread(self.get_data())
+        return await asyncio.to_thread(self.get_data)
 
 
 # this will show the first 6 repices for a given topic
@@ -131,7 +131,7 @@ async def get_list_by_topic(topic="Pizza"):
     list_of_cards = [Card(driver, card) for card in cards]
     data = await asyncio.gather(*[card.get_data_async() for card in list_of_cards])
     # remove all the card with no title
-    data = await asyncio.gather([x for x in data if x['title'] != ''])
+    data = [x for x in data if x['title'] != '']
 
     driver.close()
     return data
