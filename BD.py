@@ -128,8 +128,8 @@ async def get_list_by_topic(topic="Pizza"):
     # scrolling down the page
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     cards = driver.find_elements_by_class_name(class_name)[0:10]
-    list_of_cards = await asyncio.gather(*[Card(driver, card) for card in cards])
-    data = await asyncio.gather([card.get_data() for card in list_of_cards])
+    list_of_cards = [Card(driver, card) for card in cards]
+    data = await asyncio.gather([card.get_data_async() for card in list_of_cards])
     # remove all the card with no title
     data = await asyncio.gather([x for x in data if x['title'] != ''])
 
