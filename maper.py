@@ -77,7 +77,7 @@ class Resturant:
 
 
 def get_resturants_by_query_and_city(qurey = "pizza" , city = "sidi bouzid") :
-    driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
+    # driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
     driver = webdriver.Chrome(executable_path=os.environ.get(
         "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     # maximize the window
