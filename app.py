@@ -15,14 +15,13 @@ this app is using selenium to predict the image than to scrape some data from we
 
 # creating app with cross
 
-
-
-
+from maper import get_api_response
 from BD import Recipe, get_list_by_topic
 from food52er import search_food52
 from youtuber import search_youtube
 from waitress import serve
 from googler import predict_image
+
 # from predict_ts import predict_image
 from werkzeug.utils import secure_filename
 import os
@@ -151,6 +150,14 @@ def recipe_details():
             "Error": "Error while fetching data"
         }
 
+
+@app.route('/resturants/<topic>/<city>' , methods=['GET'])
+def get_resturants_by_query_and_city(topic , city):
+    resturants = get_api_response(topic, city)
+    return {
+        "items_length": len(resturants),
+        "resturants": resturants
+    }
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)

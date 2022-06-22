@@ -75,7 +75,7 @@ class Recipe:
         return data
     
     async def get_data_async(self):
-        return await asyncio.to_thread(self.get_data())
+        return await asyncio.to_thread(self.get_data)
 
 
 class Card:
